@@ -1,0 +1,28 @@
+{% extends 'base.html'%} 
+{% block content %}
+<div class="container"><br><br>
+    <div class="row text-center">
+        {% if diseases%}
+        <h2>Found {{ diseases|length }} diseases with searched term '{{message}}'</h2>
+        {% else %}
+        <h2> Found 0 diseases for the search term {{message}}</h2>
+        {% endif %}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% if diseases %} {% for disease in diseases %}
+        <div class="col-md-4 mt-3">
+            <div class="card zoom" id="cardoffwhite">
+                <a href="{% url 'disease' disease.id %}"><img src="{{disease.disease_image.url}}" style="width:100%;height:56%;" class="img-responsive" alt="Image"></a><br>
+                <hr>
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{disease.name}}</p>
+                    <p><strong>Description:</strong> {{disease.description|truncatechars:50}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %} {% endblock %}
